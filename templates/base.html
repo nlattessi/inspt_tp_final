@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>INSPT - TP Final</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="static/bootstrap.min.css" media="screen">
+    </head>
+    <body>
+
+        <div class="container">
+
+            <!-- template hijo -->
+            {% block content %}{% endblock %}
+            
+            <!-- errores -->
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error }}</p>
+            {% endif %}
+
+            <!-- mensajes -->
+            {% for message in get_flashed_messages() %}
+              {{ message }}
+            {% endfor %}
+
+        </div>
+
+    </body>
+</html>
