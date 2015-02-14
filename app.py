@@ -1,11 +1,21 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, g
+from flask.ext.sqlalchemy import SQLAlchemy
 from functools import wraps
 
+# Creo el objeto Flask
 app = Flask(__name__)
 
-app.secret_key = 'secret key'
+# Configuracion
+# import os
+# app.config.from_object(os.environ['APP_SETTINGS'])
+app.config.from_object('config.DevelopmentConfig')
 
+# Creo el objeto SQLAlchemy
+db = SQLAlchemy(app)
 
+from models import *
+
+# Decorador de login
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -20,7 +30,13 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    return render_template('index.html')
+    #return render_template('index.html')
+    # g.db = connect_db()
+    # cur = g.db.execute('select * from menu_items')
+    # menu_items = [dict(nombre=row[0], precio=row[1]) for row in cur.fetchall()]
+    # g.db.close()
+    menu_items = db.session.query(MenuItem).all()
+    return render_template('index.html', menu_items=menu_items)
 
 
 @app.route('/welcome')
