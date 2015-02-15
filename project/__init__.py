@@ -15,7 +15,7 @@ app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 #app.config.from_object('config.DevelopmentConfig')
-app.config.from.from_object(os.environ['APP_SETTINGS'])
+app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
 from project.users.views import users_blueprint
