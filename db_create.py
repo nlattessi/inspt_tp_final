@@ -16,6 +16,8 @@ db.session.add(MenuItem("item de test", 1, 1))
 # Commiteo los cambios
 db.session.commit()
 
+user = User.query.filter_by(username='admin').first()
+print(user)
 
 #import sqlite3
 

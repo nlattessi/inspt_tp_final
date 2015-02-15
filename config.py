@@ -21,4 +21,5 @@ class DevelopmentConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    if os.environ.get('HEROKU'):
+        SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
