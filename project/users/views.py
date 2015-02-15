@@ -11,13 +11,11 @@ from flask.ext.login import login_user, login_required, logout_user # pragma: no
 from .forms import LoginForm, RegisterForm # pragma: no cover
 from .. import db # pragma: no cover
 from ..models import User # pragma: no cover
-#from app import app
-#from flask.ext.sqlalchemy import SQLAlchemy
 
 
-
-
+################
 #### config ####
+################
 
 users_blueprint = Blueprint(
     'users', __name__,
@@ -25,7 +23,9 @@ users_blueprint = Blueprint(
 ) # pragma: no cover
 
 
+###############
 #### rutas ####
+###############
 
 @users_blueprint.route('/login', methods=['GET', 'POST']) # pragma: no cover
 def login():
@@ -37,7 +37,7 @@ def login():
             if user is not None and sha256_crypt.verify(request.form['password'], user.password):
                 login_user(user)
                 flash('Acabas de loguearte!')
-                return redirect(url_for('home.home'))
+                return redirect(url_for('menu.menu'))
             else:
                 error = 'Credenciales invalidas. Proba de nuevo'
     return render_template('login.html', form=form, error=error)
@@ -46,10 +46,9 @@ def login():
 @users_blueprint.route('/logout') # pragma: no cover
 @login_required # pragma: no cover
 def logout():
-    #session.pop('logged_in', None)
     logout_user()
     flash('Acabas de desloguearte!')
-    return redirect(url_for('home.welcome'))
+    return redirect(url_for('home.index'))
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST']) # pragma: no cover
@@ -64,5 +63,5 @@ def register():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return redirect(url_for('home.home'))
+        return redirect(url_for('menu.menu'))
     return render_template('register.html', form=form)

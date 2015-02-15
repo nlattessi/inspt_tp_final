@@ -1,9 +1,10 @@
+{% import "bootstrap/wtf.html" as wtf %}
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Por favor registrate</h1>
+<h2>Registrate</h2>
 <br>
-<form action="" method="post" role="form" class="form-signin">
+<!-- <form action="" method="post" role="form" class="form-signin">
     {{ form.csrf_token }}
     <p>
         {{ form.username(placeholder="Username") }}
@@ -46,6 +47,12 @@
         </span>
     </p>
     <button class="btn btn-sm btn-success" type="submit">Registrar!</button>
-</form>
+</form> -->
+
+<div class="row">
+    <div class="col-md-4">
+        {{ wtf.quick_form(form) }}        
+    </div>
+</div>
 
 {% endblock %}

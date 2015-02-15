@@ -1,9 +1,10 @@
+{% import "bootstrap/wtf.html" as wtf %}
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Por favor hace login</h1>
+<h2>Login</h2>
 <br>
-<form action="" method="post" role="form" class="form-signin">
+<!-- <form action="" method="post" role="form" class="form-signin">
     {{ form.csrf_token }}
     <p>
         {{ form.username(placeholder="Username") }}
@@ -26,14 +27,12 @@
         </span>
     </p>
     <button class="btn btn-sm btn-success" type="submit">Login</button>
-</form>
+</form> -->
 
-<!--
-<form action="" method="post">
-  <input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
-  <input type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
-  <input type="submit" class="btn btn-default" value="Login">
-</form>
--->
+<div class="row">
+    <div class="col-md-4">
+        {{ wtf.quick_form(form) }}        
+    </div>
+</div>
 
 {% endblock %}

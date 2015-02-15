@@ -1,71 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Bienvenido a INSPT-TP Final</h1>
+<h2>Bienvenido</h2>
 <br>
-<p>Click <a href="/logout">aca</a> para desloguearte.</p>
-<br><br>
-
-<!-- Categoria form -->
-<form action="" method="post" role="form">
-    {{ form_categoria.csrf_token }}
-    <p>
-        {{ form_categoria.nombre(placeholder='Nombre categoria') }}
-        <span class="error">
-            {% if form_categoria.nombre.errors %}
-                {% for error in form_categoria.nombre.errors %}
-                    {{ error }}
-                {% endfor %}
-            {% endif %}
-        </span>
-    </p>
-    <button class="btn btn-sm btn-success" type="submit">Agregar categoria</button>
-</form>
-
-<!-- Item form -->
-<form action="" method="post" role="form">
-    {{ form_item.hidden_tag() }}
-    <p>
-        {{ form_item.nombre(placeholder='Nombre item') }}
-        <span class="error">
-            {% if form_item.nombre.errors %}
-                {% for error in form_item.nombre.errors %}
-                    {{ error }}
-                {% endfor %}
-            {% endif %}
-        </span>
-    </p>
-    <p>
-        {{ form_item.precio(placeholder='Precio item') }}
-        <span class="error">
-            {% if form_item.precio.errors %}
-                {% for error in form_item.precio.errors %}
-                    {{ error }}
-                {% endfor %}
-            {% endif %}
-        </span>
-    </p>
-    <p>
-        {{ form_item.categoria_id() }}
-        <span class="error">
-            {% if form_item.categoria_id.errors %}
-                {% for error in form_item.categoria_id.errors %}
-                    {{ error }}
-                {% endfor %}
-            {% endif %}
-        </span>
-    </p>
-    <button class="btn btn-sm btn-success" type="submit">Agregar item</button>
-</form>
-
-
-<!-- Todo el menu -->
-<h3>Menu:</h3>
-{% for item in menu_items %}
-    <strong>Nombre:</strong> {{ item.nombre }} <br>
-    <strong>Precio:</strong> ${{ item.precio|round(2) }} <br>
-    <strong>Categoria:</strong> {{ item.categoria.nombre }} <br>
-    <br>
-{% endfor %}
+<p>Click <a href="/login">aca</a> para loguearte.</p>
+<br>
+<p>Click <a href="/register">aca</a> para registrarte.</p>
 
 {% endblock %}

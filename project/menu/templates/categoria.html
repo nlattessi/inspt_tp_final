@@ -1,0 +1,33 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Agregar categoria</h1>
+<br>
+
+<!-- Categoria form -->
+<!-- <form action="" method="post" role="form">
+    {{ form.csrf_token }}
+    <p>
+        {{ form.nombre(placeholder='Nombre categoria') }}
+        <span class="error">
+            {% if form.nombre.errors %}
+                {% for error in form.nombre.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+        </span>
+    </p>
+    <button class="btn btn-sm btn-success" type="submit">Agregar</button>
+</form> -->
+
+<div class="row">
+    <div class="col-md-4">
+        {{ wtf.quick_form(form) }}        
+    </div>
+</div>
+
+
+
+
+{% endblock %}

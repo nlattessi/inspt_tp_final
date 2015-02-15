@@ -4,15 +4,21 @@
         <title>INSPT - TP Final</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="static/bootstrap.min.css" media="screen">
+        <!-- <link rel="stylesheet" href="static/bootstrap.min.css" media="screen"> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" media="screen">
     </head>
     <body>
 
         <div class="container">
 
-            <!-- template hijo -->
-            {% block content %}{% endblock %}
-            
+            <h1>INSPT-TP Final</h1>
+            <br>
+
+            <!-- snippet de logout -->
+            {% if current_user.is_authenticated() %}
+                <p>Click <a href="/logout">aca</a> para desloguearte.</p>
+            {% endif %}
+
             <!-- errores -->
             {% if error %}
                 <p class="error"><strong>Error:</strong> {{ error }}</p>
@@ -22,6 +28,24 @@
             {% for message in get_flashed_messages() %}
               {{ message }}
             {% endfor %}
+
+            <!-- template hijo -->
+            {% block content %}{% endblock %}
+            
+
+            <!-- errores -->
+            <!--
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error }}</p>
+            {% endif %}
+            -->
+                        
+            <!-- mensajes -->
+            <!--
+            {% for message in get_flashed_messages() %}
+              {{ message }}
+            {% endfor %}
+            -->
 
         </div>
 

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<a class="btn btn-primary" href="{{ url_for('menu.categoria') }}" role="button">Agregar categoria</a>
+<a class="btn btn-primary" href="{{ url_for('menu.item') }}" role="button">Agregar item</a>
+
+<!-- Todo el menu -->
+<h3>Menu:</h3>
+{% for item in menu_items %}
+    <strong>Nombre:</strong> {{ item.nombre }} <br>
+    <strong>Precio:</strong> ${{ item.precio|round(2) }} <br>
+    <strong>Categoria:</strong> {{ item.categoria.nombre }} <br>
+    <br>
+{% endfor %}
+
+{% endblock %}
