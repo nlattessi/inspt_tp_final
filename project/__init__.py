@@ -14,8 +14,13 @@ from flask.ext.login import LoginManager
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
-#app.config.from_object('config.DevelopmentConfig')
-app.config.from_object(os.environ['APP_SETTINGS'])
+
+if os.environ.get('HEROKU'):
+    app.config.from_object(os.environ['APP_SETTINGS'])
+else:
+    app.config.from_object('config.DevelopmentConfig')
+
+
 db = SQLAlchemy(app)
 
 from project.users.views import users_blueprint
