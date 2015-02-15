@@ -20,7 +20,6 @@ if os.environ.get('HEROKU'):
 else:
     app.config.from_object('config.DevelopmentConfig')
 
-
 db = SQLAlchemy(app)
 
 from project.users.views import users_blueprint

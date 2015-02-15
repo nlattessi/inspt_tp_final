@@ -1,3 +1,5 @@
+import os
+
 # Default config
 class BaseConfig(object):
     DEBUG = False
