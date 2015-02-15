@@ -2,6 +2,7 @@
 #### imports ####
 #################
 
+import os
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
@@ -13,7 +14,8 @@ from flask.ext.login import LoginManager
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config.from_object('config.DevelopmentConfig')
+#app.config.from_object('config.DevelopmentConfig')
+app.config.from.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
 from project.users.views import users_blueprint
