@@ -1,5 +1,5 @@
-from app import db
-from models import MenuItem, MenuCategoria
+from project import db
+from project.models import MenuItem, MenuCategoria
 
 # Creo la base y las tablas
 db.create_all()

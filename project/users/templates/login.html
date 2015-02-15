@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Por favor hace login</h1>
+<br>
+<form action="" method="post" role="form" class="form-signin">
+    {{ form.csrf_token }}
+    <p>
+        {{ form.username(placeholder="Username") }}
+        <span class="error">
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+        </span>
+    </p>
+    <p>
+        {{ form.password(placeholder="Password") }}
+        <span class="error">
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+        </span>
+    </p>
+    <button class="btn btn-sm btn-success" type="submit">Login</button>
+</form>
+
+<!--
+<form action="" method="post">
+  <input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
+  <input type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
+  <input type="submit" class="btn btn-default" value="Login">
+</form>
+-->
+
+{% endblock %}
