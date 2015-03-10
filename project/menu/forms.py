@@ -3,13 +3,13 @@ from wtforms import StringField, PasswordField, IntegerField, SelectField, Decim
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
-class CategoriaForm(Form):
+class MenuCategoriaForm(Form):
     nombre = StringField('Nombre', validators=[DataRequired()])
-    submit = SubmitField('Agregar')
+    submit = SubmitField('Guardar')
 
 
-class ItemForm(Form):
+class MenuItemForm(Form):
     nombre = StringField('Nombre', validators=[DataRequired()])
     precio = DecimalField('Precio', validators=[DataRequired()])
     categoria_id = SelectField('Categoria', coerce=int)
-    submit = SubmitField('Agregar')
+    submit = SubmitField('Guardar')

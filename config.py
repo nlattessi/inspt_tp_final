@@ -3,7 +3,7 @@ import os
 # Default config
 class BaseConfig(object):
     DEBUG = False
-    SECRET_KEY = '\xdeF\x8c\xe8wuU\xdc\x1b\xae\x0e\xf8\xfa\xe2\xd2\x8c|\xf3\x9a\xceL\x1c\xd2\n'
+    SECRET_KEY = 'secret key'
 
 
 class TestConfig(BaseConfig):
@@ -17,6 +17,7 @@ class TestConfig(BaseConfig):
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
+    BOOTSTRAP_SERVE_LOCAL = True
 
 
 class ProductionConfig(BaseConfig):

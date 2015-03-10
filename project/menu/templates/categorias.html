@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}INSPT - TP Final | Categorias{% endblock %}
+
+{% block page_content %}
+
+<!-- Modal confirmacion para borrar categoria -->
+{% include "_categoria_modal_borrado.html" %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        
+        <div class="page-header">
+            <h1 class="text-center">Categorias</h1>
+        </div>
+
+        {% include "_categoria_lista.html" %}
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+$(document).ready(function() {
+    categoriaEditarBorrar();
+});
+</script>
+{% endblock %}

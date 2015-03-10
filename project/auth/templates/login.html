@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}INSPT - TP Final | Auth | Agregar{% endblock %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="page-header">
+            <h1 class="text-center">Auth | Login</h1>
+        </div>
+        {{ wtf.quick_form(form, button_map={'submit': 'info'}) }}
+    </div>
+</div>
+{% endblock %}

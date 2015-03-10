@@ -1,7 +1,9 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from passlib.hash import sha256_crypt
-from project import db
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask.ext.login import UserMixin
+from . import db, login_manager
 
 
 class MenuCategoria(db.Model):
@@ -37,20 +39,33 @@ class MenuItem(db.Model):
         return '<nombre: {}, precio: >'.format(self.nombre, self.precio)
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
 
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=True)
-    email = db.Column(db.String, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    email = db.Column(db.String(64), nullable=False, unique=True, index=True)
+    username = db.Column(db.String(64), nullable=False, unique=True, index=True)
+    is_admin = db.Column(db.Boolean)    
+    password_hash = db.Column(db.String(128))
 
-    def __init__(self, username, email, password):
+    '''def __init__(self, username, email, password):
         self.username = username
         self.email = email
-        self.password = sha256_crypt.encrypt(password)
+        self.password = generate_password_hash(password)
+    '''
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable atribute')
 
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    '''
     def is_active(self):
         return True
 
@@ -62,6 +77,12 @@ class User(db.Model):
 
     def get_id(self):
         return str(self.id)
+    '''
 
     def __repr__(self):
         return '<username: {}, email: {}'.format(self.username, self.email)
+
+@login_manager.user_loader
+def load_user(user_id):
+    #return User.query.filter_by(id=int(user_id)).first()
+    return User.query.get(int(user_id))

@@ -24,21 +24,14 @@ else:
 
 db = SQLAlchemy(app)
 
-from project.users.views import users_blueprint
-from project.home.views import home_blueprint
-from project.menu.views import menu_blueprint
+from .auth.views import auth_blueprint
+from .home.views import home_blueprint
+from .menu.views import menu_blueprint
 
 # Registro los blueprints
-app.register_blueprint(users_blueprint)
+app.register_blueprint(auth_blueprint, url_prefix='/auth')
 app.register_blueprint(home_blueprint)
 app.register_blueprint(menu_blueprint)
 
 
-from .models import User
-
-login_manager.login_view = 'users.login'
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.filter_by(id=int(user_id)).first()
+login_manager.login_view = 'auth.login'

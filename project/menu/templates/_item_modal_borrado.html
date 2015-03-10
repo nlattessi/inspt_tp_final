@@ -1,0 +1,27 @@
+<!-- Modal de confirmacion de borrado -->
+<div class="modal fade" id="itemModalBorrado" tabindex='-1'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center" id="itemModalBorradoTitle"></h4>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <h2 class="text-center">Estas seguro de borrar?</h2>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <span class="pull-left">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>                    
+                </span>
+                <span class="pull-right">
+                    <form class="form-inline" action="/" method="POST" id="itemModalBorradoForm">
+                        <button type="submit" class="btn btn-danger">➥Borrar</button>
+                    </form>  
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

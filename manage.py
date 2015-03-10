@@ -4,12 +4,29 @@ import coverage
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 from project import app, db
+from project.models import User
 
 app.config.from_object('config.DevelopmentConfig')
 migrate = Migrate(app, db)
 manager = Manager(app)
 
 manager.add_command('db', MigrateCommand)
+
+@manager.command
+def adduser(email, username, admin=False):
+    """Registra nuevo usuario."""
+    from getpass import getpass
+    password = getpass()
+    password2 = getpass(prompt="Confirm: ")
+    if password != password2:
+        import sys
+        sys.exit("Error: passwords no concuerdan")
+    db.create_all()
+    user = User(email=email, username=username, password=password, is_admin=admin)
+    db.session.add(user)
+    db.session.commit()
+    print("Usuario {0} se registro con exito.".format(username))
+
 
 @manager.command
 def test():

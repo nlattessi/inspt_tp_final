@@ -1,53 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>INSPT - TP Final</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="static/bootstrap.min.css" media="screen"> -->
-        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" media="screen">
-    </head>
-    <body>
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/fixes.html" as fixes %}
 
-        <div class="container">
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
 
-            <h1>INSPT-TP Final</h1>
-            <br>
+{% block title %}INSPT - TP Final{% endblock %}
 
-            <!-- snippet de logout -->
-            {% if current_user.is_authenticated() %}
-                <p>Click <a href="/logout">aca</a> para desloguearte.</p>
-            {% endif %}
+{% block navbar %}
+<!--<nav class="navbar navbar-default" role="navigation">-->
+<nav class="navbar-inverse" role="navigation">
+    <div class="container-fluid">
 
-            <!-- errores -->
-            {% if error %}
-                <p class="error"><strong>Error:</strong> {{ error }}</p>
-            {% endif %}
+        <div class="navbar-header">
 
-            <!-- mensajes -->
-            {% for message in get_flashed_messages() %}
-              {{ message }}
-            {% endfor %}
-
-            <!-- template hijo -->
-            {% block content %}{% endblock %}
-            
-
-            <!-- errores -->
-            <!--
-            {% if error %}
-                <p class="error"><strong>Error:</strong> {{ error }}</p>
-            {% endif %}
-            -->
-                        
-            <!-- mensajes -->
-            <!--
-            {% for message in get_flashed_messages() %}
-              {{ message }}
-            {% endfor %}
-            -->
-
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('home.index') }}">TP-INSPT</a>
         </div>
 
-    </body>
-</html>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="active dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ url_for('menu.index') }}">Ver menu</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url_for('menu.categorias') }}">Ver categorias</a></li>
+                        <li><a href="{{ url_for('menu.categoria_agregar') }}">Agregar categoria</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url_for('menu.items') }}">Ver items</a></li>
+                        <li><a href="{{ url_for('menu.item_agregar') }}">Agregar item</a></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated() %}
+                    <li><a href="{{ url_for('auth.user', username=current_user.username) }}"><span class="glyphicon glyphicon-user"></span></a></li>
+                {% endif %}
+                {% if not current_user.is_authenticated() %}
+                    <li><a href="{{ url_for('auth.login') }}">Log in</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-12">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <p class="text-center">{{ message }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
+{% endblock %}
