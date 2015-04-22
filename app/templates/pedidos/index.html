@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+
+{% block page_content %}
+<div class="row">
+  <div class="col-md-6">
+    <div id="example"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+<script src="{{ url_for('static', filename='js/react.js') }}"></script>
+<script src="{{ url_for('static', filename='js/JSXTransformer.js') }}"></script>
+
+<script type="text/jsx" src="{{ url_for('static', filename='js/pedidos.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends '_base.html' %}
+
+{% set title = "Pruebas" %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-lg-12">
+        <form action="" method="post" class="form-horizontal">            
+
+            <!-- select cat -->
+            <div class="form-group">
+                <label for="cat" class="col-sm-2 control-label">Cat:</label>
+                <div class="col-sm-10">
+                    <select name="cat" id="first-choice" class="form-control">
+                        <option value="base" selected>Please select</option>
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- select item -->
+            <div class="form-group">
+                <label for="item" class="col-sm-2 control-label">Item:</label>
+                <div class="col-sm-10">
+                    <select name="item" id="second-choice" class="form-control">
+                        <option>Please choose from above</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- submit -->
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button id="submit" type="submit" class="btn btn-default btn-md pull-right"><span class="glyphicon glyphicon-plus"></span> Create</button>
+                </div>
+            </div>
+            
+
+        </form>
+
+
+        <select id="first-choice">
+        <option value="base" selected>Please select</option>
+        {% for categoria in categorias %}
+            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+            <!-- <option value="beverages">Beverages</option>
+            <option value="snacks">Snacks</option> -->
+        {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <select id="second-choice">
+            <option>Please choose from above</option>
+        </select>
+    </div>
+</div>
+
+{% if info %}
+<div class="row">
+    <div class="col-lg-12">
+        {{ info }}
+    </div>
+</div>
+{% endif %}
+
+{% if item %}
+<div class="row">
+    <div class="col-lg-12">
+        {{ item.nombre }}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block js %}
+<script>
+$("#first-choice").change(function() {
+   
+    var $dropdown = $(this);
+
+    $.getJSON('jsonget', {
+        cat_id: $dropdown.val()
+    }, function(data) {
+        
+        var $secondChoice = $("#second-choice");
+        $secondChoice.empty();
+
+        var $submit = $("#submit");
+
+        if ($.isEmptyObject(data.items)) {
+            $secondChoice.append("<option disabled>" + "sin items" + "</option>");
+            $secondChoice.prop('disabled', 'disabled');            
+            $submit.prop('disabled', 'disabled');
+        } else {
+            $secondChoice.prop('disabled', false);
+            $submit.prop('disabled', false);
+            $.each(data.items, function(index, value) {
+                $secondChoice.append("<option value=" + value.id + ">" + value.nombre + "</option>");
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

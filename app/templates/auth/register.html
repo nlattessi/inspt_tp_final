@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% set title = "Register" %}
+
+{% block page_content %}
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    {{ wtf.quick_form(form) }}        
+  </div>
+</div>
+{% endblock %}

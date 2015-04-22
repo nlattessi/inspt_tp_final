@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% set title = titulo_pag %}
+
+{% block page_content %}
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    
+    <div class="page-header">
+      <h1>{{ titulo_pag }} item</h1>
+    </div>
+
+    {{ wtf.quick_form(form) }}  
+
+  </div>
+</div>
+{% endblock %}

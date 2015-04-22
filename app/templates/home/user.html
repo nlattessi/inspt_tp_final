@@ -1,0 +1,9 @@
+{% extends "_base.html" %}
+
+{% set title = "User" %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Hola, {{ current_user.username }}!</h1>
+</div>
+{% endblock %}

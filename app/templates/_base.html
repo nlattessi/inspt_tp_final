@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{ title }} | RestoAPP </title>
+
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> -->
+    {#<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/darkly/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    {#<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">#}
+    {% block css %}
+    {% endblock %}
+
+  </head>
+  <body>
+
+    <div class="container">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('home.index') }}">RestoApp</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              {% if current_user.is_admin %}
+                <li><a href="{{ url_for('categorias.get_all') }}">Categorias</a></li>
+                <li><a href="{{ url_for('categorias.add') }}">+ Categoria</a></li>
+                <li><a href="{{ url_for('items.get_all') }}">Items</a></li>
+                <li><a href="{{ url_for('items.add') }}">+ Item</a></li>
+              {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              {% if not current_user.is_authenticated() %}
+                <li><a href="{{ url_for('auth.register') }}">Registrarse</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+              {% else %}
+                <li class="dropdown">                  
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ current_user.username }} <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                  </ul>
+                </li>              
+              {% endif %}
+            </ul>
+          </div>
+          <!-- /.nav-collapse -->
+        </div>
+        <!-- /.nav-fluid -->
+      </nav>
+
+      <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-dismissible alert-{{ category }}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        {% block page_content %}
+        {% endblock %} 
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-1.11.2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    
+    {#<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery-1.11.2.min.js')}}"></script>#}
+    {% block js %}
+    {% endblock %}
+
+  </body>
+</html>

@@ -1,26 +1,25 @@
 import os
 
-# Default config
-class BaseConfig(object):
-    DEBUG = False
-    SECRET_KEY = 'secret key'
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 
-class TestConfig(BaseConfig):
+class Config:
+    SECRET_KEY = 'secret_key'
+
+
+class DevelopmentConfig(Config):
     DEBUG = True
-    TESTING = True
-    WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = "sqlite://"
-    PRESERVE_CONTEXT_ON_EXCEPTION = False
-
-
-class DevelopmentConfig(BaseConfig):
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///../database.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
     BOOTSTRAP_SERVE_LOCAL = True
 
 
-class ProductionConfig(BaseConfig):
-    DEBUG = False
-    if os.environ.get('HEROKU'):
-        SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+class ProductionConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+
+
+config = {
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+    'default': DevelopmentConfig
+}

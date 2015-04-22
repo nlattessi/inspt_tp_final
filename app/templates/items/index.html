@@ -1,0 +1,49 @@
+{% extends "_base.html" %}
+
+{% set title = "Items" %}
+
+{% block page_content %}
+<div class="row">
+  <div class="col-md-12">
+    
+    <div class="page-header">
+      <h1>Items</h1>
+    </div>
+    
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Precio</th>
+          <th>Categoria</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in items %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td><a href="{{ url_for('items.get', id=item.id) }}">{{ item.nombre }}</a></td>
+          <td>{{ item.descripcion }}</td>
+          <td>
+          {% if item.precio %}
+            ${{ item.precio|round(2) }}
+          {% else %}
+            -
+          {% endif %}
+          </td>
+          <td>{{ item.categoria.nombre }}</td>
+          <td>
+            <a href="{{ url_for('items.edit', id=item.id) }}" class="btn btn-info btn-xs">Editar</a>
+            <a href="{{ url_for('items.delete', id=item.id) }}" class="btn btn-danger btn-xs">Borrar</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  
+  </div>
+</div>
+{% endblock %}

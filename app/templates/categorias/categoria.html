@@ -1,0 +1,52 @@
+{% extends "_base.html" %}
+
+{% set title = "Categoria" %}
+
+{% block page_content %}
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="page-header">
+      <h1>Categoria: <strong>{{ categoria.nombre|capitalize() }}</strong></h1>
+      <blockquote>
+        <p><small>{{ categoria.descripcion }}</small></p>
+      </blockquote>
+      <h3><small></small></h3>
+        <a href="{{ url_for('categorias.edit', id=categoria.id) }}" class="btn btn-info btn-xs">Editar</a>
+        <a href="{{ url_for('categorias.delete', id=categoria.id) }}" class="btn btn-danger btn-xs">Borrar</a>
+    </div>
+
+    <hr>
+
+    <h2>Items de: <b>{{ categoria.nombre|capitalize() }}</b></h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Precio</th>
+          <th>Categoria</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in categoria.items %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td><a href="{{ url_for('items.get', id=item.id) }}">{{ item.nombre }}</a></td>
+          <td>{{ item.descripcion }}</td>
+          <td>${{ item.precio|round(2) }}</td>
+          <td>{{ item.categoria.nombre }}</td>
+          <td>
+            <a href="{{ url_for('items.edit', id=item.id) }}" class="btn btn-info btn-xs">Editar</a>
+            <a href="{{ url_for('items.delete', id=item.id) }}" class="btn btn-danger btn-xs">Borrar</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+{% endblock %}

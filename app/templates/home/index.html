@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+
+{% set title = "Home" %}
+
+{% block page_content %}
+{% if not current_user.is_authenticated() %}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <a class="btn btn-success btn-lg btn-block" href="{{ url_for('auth.register') }}" role="button">Registrarse</a>
+      <a class="btn btn-info btn-lg btn-block" href="{{ url_for('auth.login') }}" role="button">Login</a>
+    </div>
+  </div>
+{% else %}
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="page-header">
+        <h1>Hola {{ current_user.username }} <small>Menu:</small></h1>
+      </div>
+      <a class="btn btn-warning btn-lg btn-block" href="{{ url_for('categorias.get_all') }}" role="button">Categorias</a>
+      <a class="btn btn-danger btn-lg btn-block" href="{{ url_for('items.get_all') }}" role="button">Items</a>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
